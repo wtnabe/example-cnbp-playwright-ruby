@@ -1,0 +1,6 @@
+api = "0.10"
+
+[extension]
+id = "playwright-deps-extension"
+name = "Playwright deps extension"
+version = "0.1"

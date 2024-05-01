@@ -1,0 +1,21 @@
+steps:
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+    id: build
+    entrypoint: bash
+    env:
+      - 'PROJECT_ID=$PROJECT_ID'
+    args: # pack-cli ppa is broken
+      - -c
+      - 'echo "deb https://ppa.launchpadcontent.net/cncf-buildpacks/pack-cli/ubuntu focal main" > /etc/apt/sources.list.d/cnbp-pack.list && apt-get update --allow-insecure-repositories && apt-get --allow-unauthenticated install pack-cli && ./bin/build-app'
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+    id: push
+    entrypoint: bash
+    args:
+      - -c
+      - 'docker tag playwright-ruby-app asia-docker.pkg.dev/${PROJECT_ID}/playwright-ruby/app && docker push asia-docker.pkg.dev/${PROJECT_ID}/playwright-ruby/app'
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+    id: deploy
+    entrypoint: bash
+    args:
+      - -c
+      - 'gcloud alpha run jobs deploy playwright --command cli --region asia-northeast1 --add-volume name=output,type=cloud-storage,bucket=${PROJECT_ID}-playwright-output --add-volume-mount volume=output,mount-path=/workspace/output --image asia-docker.pkg.dev/${PROJECT_ID}/playwright-ruby/app'

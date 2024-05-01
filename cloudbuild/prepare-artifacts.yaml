@@ -1,0 +1,6 @@
+steps:
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+    entrypoint: bash
+    args:
+      - -c
+      - 'gcloud artifacts repositories create playwright-ruby --location asia --repository-format docker'

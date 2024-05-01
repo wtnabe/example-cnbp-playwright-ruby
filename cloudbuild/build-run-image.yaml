@@ -1,0 +1,10 @@
+steps:
+  - name: gcr.io/cloud-builders/docker
+    entrypoint: bash
+    args:
+      - ./bin/build-run-image
+  - name: gcr.io/cloud-builders/docker
+    entrypoint: bash
+    args:
+      - -c
+      - 'docker tag playwright-run-image asia-docker.pkg.dev/${PROJECT_ID}/playwright-ruby/run-image && docker push asia-docker.pkg.dev/${PROJECT_ID}/playwright-ruby/run-image'

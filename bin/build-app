@@ -1,0 +1,17 @@
+#! /bin/bash
+
+pack config experimental true
+
+if [ ! -z "$PROJECT_ID" ]; then
+  RUN_IMAGE=asia-docker.pkg.dev/${PROJECT_ID}/playwright-ruby/run-image
+else
+  RUN_IMAGE=playwright-run-image
+fi
+
+DOCKER_CLI_EXPERIMENTAL=enabled pack build playwright-ruby-app \
+		 -B gcr.io/buildpacks/builder:google-22 \
+		 --pre-buildpack ./buildpacks/playwright-deps \
+		 --extension ./extensions/playwright-deps \
+		 --post-buildpack ./buildpacks/playwright-npm \
+		 --run-image $RUN_IMAGE \
+		 -D cli --path .

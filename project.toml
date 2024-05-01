@@ -1,0 +1,16 @@
+[_]
+id = "playwright-ruby-app"
+schema-version = "0.2"
+
+[io.buildpacks]
+exclude = [
+  ".DS_Store",      
+  "*~",
+  "*.bak",
+  "/node_modules",
+  "/vendor",
+  "/.bundle",
+  "/.git",
+  "/extensions",
+  "/output"
+]

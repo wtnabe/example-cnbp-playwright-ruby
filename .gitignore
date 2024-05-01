@@ -1,0 +1,9 @@
+.DS_Store
+*~
+*.bak
+
+/.bundle
+/node_modules
+/vendor
+/output
+!/output/.keep

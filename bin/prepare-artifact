@@ -1,0 +1,3 @@
+#! /bin/sh
+
+gcloud artifacts repositories create playwright-ruby-app --repository-format DOCKER

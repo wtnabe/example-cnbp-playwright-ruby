@@ -1,0 +1,12 @@
+#! /bin/sh
+
+plan_path=$2
+
+echo "Playwright deps Buildpack enabled."
+
+cat >>"${plan_path}" <<EOL
+[[requires]]
+name = "playwright-deps-extension"
+EOL
+
+exit 0
