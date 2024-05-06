@@ -1,6 +1,10 @@
+FROM us-docker.pkg.dev/berglas/berglas/berglas as berglas
+
 FROM gcr.io/buildpacks/google-22/run
 
 USER root
+
+COPY --from=berglas /bin/berglas /bin/berglas
 
 RUN apt-get update && apt-get -y install \
 		libatk1.0-0 \
